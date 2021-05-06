@@ -1,0 +1,55 @@
+---
+title: "Paranagua Estuarine COmplex Food-Webs"
+author: "José Hugo"
+date: "27/03/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+remotes::install_github("NOAA-EDAB/Rpath")
+library(rlang)
+library(Rpath); library(data.table)
+```
+
+## Setting up Ecopath
+
+```{r input data}
+basic_input<-read.csv("C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Basic input.csv")
+fleet_land<-read.csv("C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Landings.csv")
+fleet_disc<-read.csv("C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Discard.csv")
+
+pec<-create.rpath.params(group = basic_input$Group.name )
+
+
+
+```
+
+
+
+```{r cars}
+setwd("C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data")
+PEC_param<-read.rpath.params(modfile= "C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Basic input.csv", dietfile = "C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Diet composition.csv", pedfile = "C:/Users/AllanaNunes/Desktop/ParanaguaBay_FoodWeb/data/PEC Annual-Pedigree.csv" )
+
+PEC_param$model<-PEC_param$model[,-1]
+names(PEC_param$model)<-c("Group")
+
+PEC_param$model$Type<-c(rep(0, 35), rep(1, 3), 2)
+
+
+PEC_param$model
+
+check.rpath.params(PEC_param)
+rpath.groups(PEC_param)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

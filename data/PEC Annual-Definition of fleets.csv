@@ -1,0 +1,6 @@
+,"Fleet name","Fixed cost (%)","Effort related cost (%)","Sailing related cost (%)","Profit (%)","Total value (%)",
+1,"Mussel extraction",1,0,1,98,100,
+2,"Estuarine Trap",1,0,2,97,100,
+3,"Estuarine Shrimp Fishery",1,0,1,98,100,
+4,Gillnet,5,30,5,60,100,
+5,Longline,5,30,5,60,100,
