@@ -1,0 +1,77 @@
+---
+title: "CEP_MODELO"
+author: "José Hugo Dias Gondim Guanais"
+
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+- \usepackage{setspace}\doublespacing
+- \usepackage{caption}
+
+bibliography: ref_gramas.bib
+output:
+  bookdown::pdf_document2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+```{r config}
+#Configurações básicas do documento
+
+knitr::opts_chunk$set(fig.path='figure/graphics-', 
+                 cache.path='cache/graphics-', 
+                 fig.align='center',
+                 external=TRUE,
+                 echo=TRUE,
+                 warning=FALSE,
+                 fig.pos='H'
+                )
+
+```
+
+```{r libraries}
+pacman:: p_load(rgdal,gstat,raster,sp,sf, ggspatial, rgeos, mapview, mapdata, maptools,  tidyverse, ggmap, kableExtra, ggforce, cowplot, remotes) # Spatial
+remotes::install_github("NOAA-EDAB/Rpath")
+library(Rpath)
+
+
+
+```
+
+```{r dados}
+PEC_Annual_Basic_input <- read_csv("Documentos/GitHub/ParanaguaBay_FoodWeb/data/PEC Annual-Basic input.csv")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+library(prettymapr)
+prettymap(plot(1:5, 1:5, asp=1), scale.plotunit="cm", drawarrow=FALSE)
+#add a title
+prettymap(plot(1:5, 1:5, asp=1), title="My Plot")
+
+library(maptools)
+
+data(wrld_simpl)
+prettymap({plot(wrld_simpl, xlim=c(-66.86, -59.75), ylim=c(43, 47.3))
+           text(-62, 44, "Nova Scotia")
+           text(-63, 47, "PEI")}, arrow.scale=1.1)
+
+#also works in non-lat/lon coordinate systems
+prettymap(plot(1:1000, 1:1000, asp=1),
+           scale.plotepsg=26920, drawarrow=FALSE) #specify plot is in UTM Zone 20N
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
